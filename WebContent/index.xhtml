@@ -10,7 +10,21 @@
 
 <h:body>
 	<h:form id="formLogin">
-		<h1>Olá mundo jsf</h1>
+
+		<h:panelGrid columns="2" style="margin-top:22%; margin-left: 40%;">
+
+			<h:outputLabel value="Login: " />
+			<h:inputText value="#{pessoaBean.pessoa.login}" />
+
+			<h:outputLabel value="Senha: " />
+			<h:inputSecret value="#{pessoaBean.pessoa.senha}" />
+
+			<h:panelGroup>
+				<h:commandButton value="Acessar" action="#{pessoaBean.logar}" />
+			</h:panelGroup>
+
+		</h:panelGrid>
+
 	</h:form>
 </h:body>
 
