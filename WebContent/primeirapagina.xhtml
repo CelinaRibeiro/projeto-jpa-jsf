@@ -9,7 +9,18 @@
 </h:head>
 
 <h:body>
-	<h:form id="formulario">
+
+	<h:form>
+		<h:commandLink value="Administração" action="primeirapagina"
+			style="margin-left:0.5cm;" rendered="#{pessoaBean.permiteAcesso('ADMINISTRADOR')}"/>
+		<h:commandLink value="Lançamentos" action="lancamento"
+			style="margin-left:0.5cm;" />
+		<h:commandLink value="Trocar Usuário" action="index"
+			style="margin-left:0.5cm;" />
+	</h:form>
+
+	<h:form id="formulario"
+		rendered="#{pessoaBean.permiteAcesso('ADMINISTRADOR')}">
 
 		<h:panelGrid columns="2">
 
@@ -37,7 +48,8 @@
 			</h:selectOneMenu>
 
 			<h:outputLabel value="Frameworks: " />
-			<h:selectManyMenu value="#{pessoaBean.pessoa.frameworks}" style="height:150px;">
+			<h:selectManyMenu value="#{pessoaBean.pessoa.frameworks}"
+				style="height:150px;">
 				<f:selectItem itemValue="Hibernate" />
 				<f:selectItem itemValue="Spring Mvc" />
 				<f:selectItem itemValue="Jpa" />
@@ -46,37 +58,42 @@
 			</h:selectManyMenu>
 
 			<h:outputLabel value="Ativo: " />
-			<h:selectBooleanCheckbox value="#{pessoaBean.pessoa.ativo}"/>
-			
-			<h:outputLabel value="Login: "/>
-			<h:inputText value="#{pessoaBean.pessoa.login}"/>
-			
-			<h:outputLabel value="Senha: "/>
-			<h:inputSecret value="#{pessoaBean.pessoa.senha}"/>
-			
-			<h:outputLabel value="Perfil: "/>
-			<h:selectOneMenu value="#{pessoaBean.pessoa.perfilUser}" required="false">
-				<f:selectItem itemLabel="[-Selecione-]" noSelectionOption="true"/>
-				<f:selectItem itemValue="ADMINISTRADOR" itemLabel="Administrador"/>
-				<f:selectItem itemValue="SECRETARIO" itemLabel="Secretario"/>
-				<f:selectItem itemValue="RECEPCIONISTA" itemLabel="Recepcionista"/>
+			<h:selectBooleanCheckbox value="#{pessoaBean.pessoa.ativo}" />
+
+			<h:outputLabel value="Login: " />
+			<h:inputText value="#{pessoaBean.pessoa.login}" />
+
+			<h:outputLabel value="Senha: " />
+			<h:inputSecret value="#{pessoaBean.pessoa.senha}" />
+
+			<h:outputLabel value="Perfil: " />
+			<h:selectOneMenu value="#{pessoaBean.pessoa.perfilUser}"
+				required="false">
+				<f:selectItem itemLabel="[-Selecione-]" noSelectionOption="true" />
+				<f:selectItem itemValue="ADMINISTRADOR" itemLabel="Administrador" />
+				<f:selectItem itemValue="SECRETARIO" itemLabel="Secretario" />
+				<f:selectItem itemValue="RECEPCIONISTA" itemLabel="Recepcionista" />
 			</h:selectOneMenu>
-			
+
 			<h:outputLabel />
 			<h:panelGroup>
 				<h:outputLabel />
-				<h:commandButton action="#{pessoaBean.novo}" image="resources/img/Novo.png" />
-				<h:commandButton action="#{pessoaBean.salvaAtualiza}" image="resources/img/Salvar.png"/>
-				<h:commandButton action="#{pessoaBean.remove}" image="resources/img/Deletar.png" />
-				<h:commandButton type="reset" image="resources/img/Limpar.png"/>
+				<h:commandButton action="#{pessoaBean.novo}"
+					image="resources/img/Novo.png" style="margin-left:0.2cm;" />
+				<h:commandButton action="#{pessoaBean.salvaAtualiza}"
+					image="resources/img/Salvar.png" style="margin-left:0.2cm;" />
+				<h:commandButton action="#{pessoaBean.remove}"
+					image="resources/img/Deletar.png"
+					rendered="#{pessoaBean.permiteAcesso('ADMINISTRADOR')}"
+					style="margin-left:0.2cm;" />
+				<h:commandButton type="reset" image="resources/img/Limpar.png"
+					style="margin-left:0.2cm;" />
 			</h:panelGroup>
 
 		</h:panelGrid>
-	</h:form>
 
-	<br />
+		<br />
 
-	<h:form id="formTable">
 		<h:dataTable value="#{pessoaBean.pessoas}" var="pes" border="1"
 			cellpadding="6">
 
@@ -112,7 +129,7 @@
 				</h:commandLink>
 			</h:column>
 
-			<h:column>
+			<h:column rendered="#{pessoaBean.permiteAcesso('ADMINISTRADOR')}">
 				<f:facet name="header">Excluir</f:facet>
 				<h:commandLink action="#{pessoaBean.remove}">
 					<h:graphicImage url="resources/img/Deletar.png" width="25"
@@ -123,6 +140,7 @@
 			</h:column>
 
 		</h:dataTable>
+		
 	</h:form>
 
 </h:body>
