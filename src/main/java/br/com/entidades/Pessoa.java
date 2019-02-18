@@ -10,6 +10,10 @@ import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.validator.constraints.br.CPF;
+import org.hibernate.validator.constraints.br.TituloEleitoral;
+
+
 @Entity
 public class Pessoa implements Serializable{
 
@@ -43,6 +47,12 @@ public class Pessoa implements Serializable{
 	private String nivelProgramador;
 	
 	private Integer[] linguagens;
+	
+	@CPF(message = "CPF inválido" )
+	private String cpf;
+	
+	@TituloEleitoral(message = "Título eleitoral inválido")
+	private String tituloEleitoral;
 	
 	public Pessoa() {
 	}
@@ -149,6 +159,22 @@ public class Pessoa implements Serializable{
 
 	public void setLinguagens(Integer[] linguagens) {
 		this.linguagens = linguagens;
+	}
+
+	public String getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
+
+	public String getTituloEleitoral() {
+		return tituloEleitoral;
+	}
+
+	public void setTituloEleitoral(String tituloEleitoral) {
+		this.tituloEleitoral = tituloEleitoral;
 	}
 
 	@Override

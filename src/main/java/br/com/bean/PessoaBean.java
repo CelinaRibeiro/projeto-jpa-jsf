@@ -47,6 +47,13 @@ public class PessoaBean {
 	}
 	
 	public String novo() {
+		/*Executa algum processo antes do novo*/
+		pessoa = new Pessoa();
+		return "";
+	}
+	
+	public String limpar() {
+		/*Executa algum processo antes de limpar*/
 		pessoa = new Pessoa();
 		return "";
 	}
