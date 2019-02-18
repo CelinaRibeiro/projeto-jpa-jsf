@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core">
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <h:head>
 	<title>Cadastro de Usuários</title>
@@ -10,14 +11,7 @@
 
 <h:body>
 
-	<h:form>
-		<h:commandLink value="Administração" action="primeirapagina"
-			style="margin-left:0.5cm;" rendered="#{pessoaBean.permiteAcesso('ADMINISTRADOR')}"/>
-		<h:commandLink value="Lançamentos" action="lancamento"
-			style="margin-left:0.5cm;" />
-		<h:commandLink value="Trocar Usuário" action="index"
-			style="margin-left:0.5cm;" />
-	</h:form>
+	<ui:include src="/menu.xhtml"/>
 
 	<h:form id="formulario"
 		rendered="#{pessoaBean.permiteAcesso('ADMINISTRADOR')}">
@@ -32,7 +26,11 @@
 			<h:inputText value="#{pessoaBean.pessoa.id}" readonly="true" />
 
 			<h:outputLabel value="Nome: " />
-			<h:inputText value="#{pessoaBean.pessoa.nome}" />
+			<h:inputText value="#{pessoaBean.pessoa.nome}" 
+			required="true" requiredMessage="Informe o nome do usuário"
+				validatorMessage="Nome tem que ter no mínimo 10 letras">
+				<f:validateLength minimum="10" maximum="50"/>
+			</h:inputText>
 
 			<h:outputLabel value="Sobrenome: " />
 			<h:inputText value="#{pessoaBean.pessoa.sobrenome}" />
@@ -48,6 +46,11 @@
 				<f:selectItem itemValue="FEMININO" itemLabel="Feminino" />
 				<f:selectItem itemValue="MASCULINO" itemLabel="Masculino" />
 			</h:selectOneMenu>
+			
+			<h:outputLabel value="Nascimento: "/>
+			<h:inputText value="#{pessoaBean.pessoa.dataNascimento}" converterMessage="Data de nascimento errada!">
+				<f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR" timeZone="GMT-03:00"/>
+			</h:inputText>
 
 			<h:outputLabel value="Frameworks: " />
 			<h:selectManyMenu value="#{pessoaBean.pessoa.frameworks}"
@@ -116,7 +119,7 @@
 		<h:dataTable value="#{pessoaBean.pessoas}" var="pes" border="1"
 			cellpadding="6">
 
-			<f:facet name="header">Lista de Usuárioss</f:facet>
+			<f:facet name="header">Lista de Usuários</f:facet>
 
 			<h:column>
 				<f:facet name="header">ID</f:facet>
