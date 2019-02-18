@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.ExternalContext;
@@ -26,10 +27,17 @@ public class PessoaBean {
 	
 	//metodo apenas salva no bd
 	public String salvar() {
-		daoGeneric.salvar(pessoa);
-		pessoa = new Pessoa();
+		pessoa = daoGeneric.merge(pessoa);
 		carregarPessoas();
+		mostrarMsg("Cadastrado com sucesso!");
 		return "";
+	}
+	
+	private void mostrarMsg(String msg) {
+		FacesContext context = FacesContext.getCurrentInstance();
+		FacesMessage message = new FacesMessage(msg);
+		context.addMessage(null, message);
+		
 	}
 		
 	//método salva e atualiza
@@ -48,6 +56,7 @@ public class PessoaBean {
 		daoGeneric.deletePorId(pessoa);
 		pessoa = new Pessoa();
 		carregarPessoas();
+		mostrarMsg("Removido com sucesso!");
 		return "";
 	}
 	
