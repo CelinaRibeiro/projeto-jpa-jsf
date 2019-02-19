@@ -69,6 +69,36 @@
 				<f:selectItem itemValue="PrimeFaces" />
 				<f:selectItem itemValue="JSF" />
 			</h:selectManyMenu>
+			
+			<h:outputLabel value="CEP: "/>
+			<h:inputText value="#{pessoaBean.pessoa.cep}">
+				<f:ajax event="blur" execute="@this" listener="#{pessoaBean.pesquisaCep}"
+				render="logradouro complemento bairro localidade uf unidade ibge gia"/>
+			</h:inputText>
+			
+			<h:outputLabel value="Logradouro: "/>
+			<h:inputText value="#{pessoaBean.pessoa.logradouro}" id="logradouro"/>
+			
+			<h:outputLabel value="Complemento: "/>
+			<h:inputText value="#{pessoaBean.pessoa.complemento}" id="complemento"/>
+			
+			<h:outputLabel value="Bairro: "/>
+			<h:inputText value="#{pessoaBean.pessoa.bairro}" id="bairro"/>
+			
+			<h:outputLabel value="Localidade: "/>
+			<h:inputText value="#{pessoaBean.pessoa.localidade}" id="localidade"/>
+			
+			<h:outputLabel value="UF: "/>
+			<h:inputText value="#{pessoaBean.pessoa.uf}" id="uf"/>
+			
+			<h:outputLabel value="Unidade: "/>
+			<h:inputText value="#{pessoaBean.pessoa.unidade}" id="unidade"/>
+			
+			<h:outputLabel value="Ibge: "/>
+			<h:inputText value="#{pessoaBean.pessoa.ibge}" id="ibge"/>
+			
+			<h:outputLabel value="Gia: "/>
+			<h:inputText value="#{pessoaBean.pessoa.gia}" id="gia"/>
 
 			<h:outputLabel value="Ativo: " />
 			<h:selectBooleanCheckbox value="#{pessoaBean.pessoa.ativo}" />
