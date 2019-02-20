@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
 
 <h:head>
 	<title>Cadastro de Usuários</title>
@@ -27,7 +28,7 @@
 
 			<h:outputLabel value="Nome: " />
 			<h:inputText value="#{pessoaBean.pessoa.nome}" required="true"
-				requiredMessage="Informe o nome do usuário"
+				requiredMessage="Informe o nome do usuário" pt:placeholder="Informe o nome do usuário"
 				validatorMessage="Nome tem que ter no mínimo 10 letras">
 				<f:validateLength minimum="10" maximum="50" />
 			</h:inputText>
@@ -39,7 +40,7 @@
 			<h:inputText value="#{pessoaBean.pessoa.idade}" />
 
 			<h:outputLabel value="CPF: " />
-			<h:inputText value="#{pessoaBean.pessoa.cpf}" />
+			<h:inputText value="#{pessoaBean.pessoa.cpf}" pt:placeholder="Informe o CPF valido"/>
 
 			<h:outputLabel value="Título: " />
 			<h:inputText value="#{pessoaBean.pessoa.tituloEleitoral}" />
@@ -71,7 +72,7 @@
 			</h:selectManyMenu>
 			
 			<h:outputLabel value="CEP: "/>
-			<h:inputText value="#{pessoaBean.pessoa.cep}">
+			<h:inputText value="#{pessoaBean.pessoa.cep}" pt:placeholder:>
 				<f:ajax event="blur" execute="@this" listener="#{pessoaBean.pesquisaCep}"
 				render="logradouro complemento bairro localidade uf unidade ibge gia"/>
 			</h:inputText>
