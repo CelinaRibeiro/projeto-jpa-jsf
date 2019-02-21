@@ -72,7 +72,7 @@
 			</h:selectManyMenu>
 			
 			<h:outputLabel value="CEP: "/>
-			<h:inputText value="#{pessoaBean.pessoa.cep}" pt:placeholder:>
+			<h:inputText value="#{pessoaBean.pessoa.cep}" pt:placeholder="Informe o CEP">
 				<f:ajax event="blur" execute="@this" listener="#{pessoaBean.pesquisaCep}"
 				render="logradouro complemento bairro localidade uf unidade ibge gia"/>
 			</h:inputText>
@@ -136,6 +136,22 @@
 				<f:selectItem itemValue="4" itemLabel="C#" />
 				<f:selectItem itemValue="5" itemLabel="Cobol" />
 			</h:selectManyCheckbox>
+			
+			<h:outputLabel value="Estados: "/>
+			<h:selectOneMenu value="#{pessoaBean.pessoa.estados}" immediate="true" id="comboEstados"
+				converter="estadoConverter">
+				<f:selectItem itemLabel="--[Selecione]--" noSelectionOption="true"/>
+				<f:selectItems value="#{pessoaBean.estados}"/>
+				<f:ajax event="change" execute="@this" render="comboCidade"
+				 listener="#{pessoaBean.carregaCidades}"/>
+			</h:selectOneMenu>
+			
+			<h:outputLabel value="Cidades: "/>
+			<h:selectOneMenu value="#{pessoaBean.pessoa.cidades}" id="comboCidade" immediate="true"
+			converter="cidadeConverter">
+				<f:selectItem itemLabel="--[Selecione]--" noSelectionOption="true"/>
+				<f:selectItems value="#{pessoaBean.cidades}"/>
+			</h:selectOneMenu>
 
 			<h:outputLabel />
 			<h:panelGroup>
@@ -192,7 +208,7 @@
 
 			<h:column>
 				<f:facet name="header">Editar</f:facet>
-				<h:commandLink>
+				<h:commandLink action="#{pessoaBean.editar}">
 					<h:graphicImage url="resources/img/Editar.png" width="25"
 						height="25" />
 					<f:setPropertyActionListener value="#{pes}"
