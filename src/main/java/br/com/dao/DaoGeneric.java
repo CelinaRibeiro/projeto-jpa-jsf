@@ -67,9 +67,24 @@ public class DaoGeneric<E> {
 		List<E> retorno = entityManager.createQuery("from " + entidade.getName()).getResultList();
 		
 		entityTransaction.commit();
-		entityManager.close();
+		//entityManager.close();
 		
 		return retorno;
+		
+		
+		
+	}
+	
+	public E consultar(Class<E> entidade, String codigo) {
+		
+		EntityManager entityManager = JPAUtil.gEntityManager();
+		EntityTransaction entityTransaction = entityManager.getTransaction();
+		entityTransaction.begin();
+		
+		E objeto = (E) entityManager.find(entidade, Long.parseLong(codigo));
+		
+		entityTransaction.commit();
+		return objeto;
 		
 		
 		
