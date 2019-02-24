@@ -15,7 +15,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
+import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.br.CPF;
@@ -31,10 +34,16 @@ public class Pessoa implements Serializable{
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
+	@NotEmpty(message = "Nome deve ser informado!")
+	@Size(min = 5, max = 50, message = "Nome deve ter entre 5 a 50 letras!")
 	private String nome;
 	
+	@NotEmpty(message = "Sobrenome deve ser informado!")
+	@NotNull(message = "Sobrenome deve ser informado!")
 	private String sobrenome;
 
+	@DecimalMax(value = "100", message = "Idade deve ser menor que 100")
+	@DecimalMin(value = "10", message = "Idade deve ser maior que 10")
 	private String idade;
 	
 	@Temporal(TemporalType.DATE)

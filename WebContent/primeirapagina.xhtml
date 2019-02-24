@@ -28,8 +28,8 @@
 			<h:outputLabel value="Nome: " />
 			<h:inputText value="#{pessoaBean.pessoa.nome}" required="true"
 				requiredMessage="Informe o nome do usuário" pt:placeholder="Informe o nome do usuário"
-				validatorMessage="Nome tem que ter no mínimo 10 letras">
-				<f:validateLength minimum="5" maximum="50" />
+				validatorMessage="Nome tem que ter no mínimo 4 letras">
+				<f:validateLength minimum="4" maximum="50" />
 			</h:inputText>
 
 			<h:outputLabel value="Sobrenome: " />
@@ -161,7 +161,6 @@
 
 				<h:commandButton action="#{pessoaBean.salvar}"
 					image="resources/img/Salvar.png" style="margin-left:0.2cm;" >
-					
 				</h:commandButton>
 
 				<h:commandButton action="#{pessoaBean.remove}" immediate="true"
