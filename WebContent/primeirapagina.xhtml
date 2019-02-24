@@ -14,8 +14,7 @@
 
 	<ui:include src="/menu.xhtml" />
 
-	<h:form id="formPessoa" enctype="multipart/form-data"
-		rendered="#{pessoaBean.permiteAcesso('ADMINISTRADOR')}">
+	<h:form id="formPessoa" rendered="#{pessoaBean.permiteAcesso('ADMINISTRADOR')}">
 
 		<h:messages infoStyle="color:green; background:#6495ED;" />
 
@@ -26,14 +25,11 @@
 			<h:outputLabel value="ID: " />
 			<h:inputText value="#{pessoaBean.pessoa.id}" readonly="true" />
 			
-			<h:outputLabel value="Foto: "/>
-			<h:inputFile id="foto" value="#{pessoaBean.arquivofoto}"/>
-
 			<h:outputLabel value="Nome: " />
 			<h:inputText value="#{pessoaBean.pessoa.nome}" required="true"
 				requiredMessage="Informe o nome do usuário" pt:placeholder="Informe o nome do usuário"
 				validatorMessage="Nome tem que ter no mínimo 10 letras">
-				<f:validateLength minimum="10" maximum="50" />
+				<f:validateLength minimum="5" maximum="50" />
 			</h:inputText>
 
 			<h:outputLabel value="Sobrenome: " />
@@ -51,8 +47,7 @@
 			<h:outputLabel value="Sexo: " />
 			<h:selectOneMenu id="campoSexo" value="#{pessoaBean.pessoa.sexo}"
 				required="false">
-				<f:selectItem itemValue="NÃO INFORMADO" itemLabel="[-Selecione-]"
-					noSelectionOption="true" />
+				<f:selectItem itemLabel="[-Selecione-]" noSelectionOption="true" />
 				<f:selectItem itemValue="FEMININO" itemLabel="Feminino" />
 				<f:selectItem itemValue="MASCULINO" itemLabel="Masculino" />
 			</h:selectOneMenu>
@@ -114,9 +109,9 @@
 			<h:inputSecret value="#{pessoaBean.pessoa.senha}" />
 
 			<h:outputLabel value="Perfil: " />
-			<h:selectOneMenu value="#{pessoaBean.pessoa.perfilUser}"
+			<h:selectOneMenu value="#{pessoaBean.pessoa.perfilUser}" id="perfil"
 				required="false">
-				<f:selectItem itemLabel="[-Selecione-]" noSelectionOption="true" />
+				<f:selectItem itemLabel="[--Selecione--]" noSelectionOption="true" />
 				<f:selectItem itemValue="ADMINISTRADOR" itemLabel="Administrador" />
 				<f:selectItem itemValue="SECRETARIO" itemLabel="Secretario" />
 				<f:selectItem itemValue="RECEPCIONISTA" itemLabel="Recepcionista" />
@@ -127,7 +122,7 @@
 				layout="pageDirection">
 				<f:selectItem itemValue="J" itemLabel="Junior" />
 				<f:selectItem itemValue="P" itemLabel="Pleno" />
-				<f:selectItem itemValue="S" itemLabel="Sênior" />
+				<f:selectItem itemValue="S" itemLabel="Senior" />
 				<f:selectItem itemValue="E" itemLabel="Especialista" />
 			</h:selectOneRadio>
 
@@ -143,39 +138,41 @@
 			<h:outputLabel value="Estados: "/>
 			<h:selectOneMenu value="#{pessoaBean.pessoa.estados}" immediate="true" id="comboEstados"
 				converter="estadoConverter">
-				<f:selectItem itemLabel="--[Selecione]--" noSelectionOption="true"/>
+				<f:selectItem itemLabel="[--Selecione--]" noSelectionOption="true"/>
 				<f:selectItems value="#{pessoaBean.estados}"/>
 				<f:ajax event="change" execute="@this" render="comboCidade"
 				 listener="#{pessoaBean.carregaCidades}"/>
 			</h:selectOneMenu>
 			
 			<h:outputLabel value="Cidades: "/>
-			<h:selectOneMenu value="#{pessoaBean.pessoa.cidades}" id="comboCidade" immediate="true"
+			<h:selectOneMenu value="#{pessoaBean.pessoa.cidades}" immediate="true" id="comboCidade"
 			converter="cidadeConverter">
-				<f:selectItem itemLabel="--[Selecione]--" noSelectionOption="true"/>
+				<f:selectItem itemLabel="[--Selecione--]" noSelectionOption="true"/>
 				<f:selectItems value="#{pessoaBean.cidades}"/>
 			</h:selectOneMenu>
 
-			<h:outputLabel />
+		  <h:outputLabel/>
+			 
 			<h:panelGroup>
-				<h:outputLabel />
 				<h:commandButton action="#{pessoaBean.novo}" id="botaoNovo"
-					image="resources/img/Novo.png" style="margin-left:0.2cm;" >
-					<f:ajax execute="botaoNovo" render="@form"/>
+					image="resources/img/Novo.png" style="margin-left:0.2cm;" immediate="true" >
+					<f:ajax execute="botaoNovo" render="@form" />
 					</h:commandButton>
 
 				<h:commandButton action="#{pessoaBean.salvar}"
-					image="resources/img/Salvar.png" style="margin-left:0.2cm;" />
+					image="resources/img/Salvar.png" style="margin-left:0.2cm;" >
+					
+				</h:commandButton>
 
-				<h:commandButton action="#{pessoaBean.remove}"
+				<h:commandButton action="#{pessoaBean.remove}" immediate="true"
 					image="resources/img/Deletar.png"
 					rendered="#{pessoaBean.permiteAcesso('ADMINISTRADOR')}"
 					style="margin-left:0.2cm;" />
 
 				<h:commandButton action="#{pessoaBean.limpar}" id="botaoLimpar"
-					image="resources/img/Limpar.png" style="margin-left:0.2cm;">
-					<f:ajax execute="botaoLimpar" render="@form"/>
-					</h:commandButton>
+					image="resources/img/Limpar.png" style="margin-left:0.2cm;" immediate="true">
+					<f:ajax execute="botaoLimpar" render="@form" />
+				</h:commandButton>
 			</h:panelGroup>
 
 		</h:panelGrid>
@@ -200,14 +197,6 @@
 			</h:column>
 			
 			<h:column>
-				<f:facet name="header">Foto</f:facet>
-					<h:commandLink actionListener="#{pessoaBean.download}">
-				<h:graphicImage width="60" height="60" value="#{pes.fotoIconBase64}"/>
-				<f:param name="fileDownloadId" value="#{pes.id}"/>
-				</h:commandLink>
-			</h:column>
-
-			<h:column>
 				<f:facet name="header">Sobrenome</f:facet>
 				<h:outputText value="#{pes.sobrenome}" />
 			</h:column>
@@ -219,7 +208,7 @@
 
 			<h:column>
 				<f:facet name="header">Editar</f:facet>
-				<h:commandLink action="#{pessoaBean.editar}">
+				<h:commandLink action="#{pessoaBean.editar}" immediate="true">
 					<h:graphicImage url="resources/img/Editar.png" width="25"
 						height="25" />
 					<f:setPropertyActionListener value="#{pes}"
@@ -229,7 +218,7 @@
 
 			<h:column rendered="#{pessoaBean.permiteAcesso('ADMINISTRADOR')}">
 				<f:facet name="header">Excluir</f:facet>
-				<h:commandLink action="#{pessoaBean.remove}">
+				<h:commandLink action="#{pessoaBean.remove}" immediate="true">
 					<h:graphicImage url="resources/img/Deletar.png" width="25"
 						height="25" />
 					<f:setPropertyActionListener value="#{pes}"
