@@ -26,7 +26,7 @@
 			<h:inputText value="#{pessoaBean.pessoa.id}" readonly="true" />
 			
 			<h:outputLabel value="Nome: " />
-			<h:inputText value="#{pessoaBean.pessoa.nome}" required="true"
+			<h:inputText value="#{pessoaBean.pessoa.nome}" required="true" onblur="alert('Perdeu o foco')"
 				requiredMessage="Informe o nome do usuário" pt:placeholder="Informe o nome do usuário"
 				validatorMessage="Nome tem que ter no mínimo 4 letras">
 				<f:validateLength minimum="4" maximum="50" />

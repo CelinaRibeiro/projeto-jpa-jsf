@@ -38,6 +38,9 @@ public class PessoaBean {
 	private List<Pessoa> pessoas = new ArrayList<Pessoa>();
 
 	private IDaoPessoa iDaoPessoa = new IDaoPessoaImpl();
+	
+	//@Inject
+	//private IDaoPessoa iDaoPessoa;
 
 	private List<SelectItem> estados;
 
